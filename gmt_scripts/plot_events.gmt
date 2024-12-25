@@ -1,0 +1,14 @@
+# Author: Zhu Dengda
+# 绘制地震分布
+
+#!/bin/bash 
+
+RMAP="128/146/30/46"
+eventsCSV="../example_jp_catalog.csv"
+
+gmt begin events png E600 
+    gmt basemap -R$RMAP -JM8c -Bafg -BWSne 
+    gmt coast -Df -W1p -A1000 
+    awk -F"," 'NR>1{print $4,$3}' $eventsCSV | gmt plot -Sc0.1c -Gred -W0 -N
+
+gmt end
